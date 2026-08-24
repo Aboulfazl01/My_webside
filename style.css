@@ -2706,3 +2706,715 @@ ul {
 
   padding: 2px;
 }
+
+/* =========================================================
+   PROFESSIONAL JOURNEY - ENHANCED
+========================================================= */
+
+.journey-section {
+  position: relative;
+  width: 100%;
+}
+
+.journey-section .section-head {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 34px;
+}
+
+.journey-section .section-head h2 {
+  margin: 14px 0 0;
+  line-height: 1.35;
+}
+
+.journey-section .section-head h2 span {
+  color: #38a8ff;
+}
+
+
+/* =========================================================
+   TABS
+========================================================= */
+
+.journey-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.journey-tab {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.025);
+  color: #7f899b;
+  padding: 9px 17px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    color 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.journey-tab:hover {
+  color: #ffffff;
+  border-color: rgba(56, 168, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+.journey-tab.active {
+  color: #ffffff;
+  border-color: transparent;
+  background: linear-gradient(
+    135deg,
+    #11b8a4,
+    #358cff
+  );
+}
+
+
+/* =========================================================
+   MAIN CARD
+========================================================= */
+
+.journey-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 245px minmax(0, 1fr);
+  min-height: 315px;
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(255, 90, 40, 0.035),
+      transparent 30%
+    ),
+    rgba(8, 10, 15, 0.72);
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.18);
+
+  transition:
+    border-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.journey-card:hover {
+  border-color: rgba(255, 255, 255, 0.13);
+}
+
+
+/* =========================================================
+   LEFT SIDE
+========================================================= */
+
+.journey-left {
+  padding: 30px 26px;
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.company-logo-placeholder {
+  width: 84px;
+  height: 84px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 25px;
+
+  overflow: hidden;
+
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.company-logo-placeholder img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: contain;
+
+  border-radius: inherit;
+}
+
+
+.journey-left h3 {
+  margin: 0 0 10px;
+
+  color: #f4f6fa;
+
+  font-size: 20px;
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+.journey-left p {
+  margin: 0 0 9px;
+
+  color: #788296;
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+.badges {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  margin-top: 18px;
+}
+
+.badges span {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 28px;
+  padding: 0 11px;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.035);
+
+  color: #8b95a7;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   RIGHT SIDE
+========================================================= */
+
+.journey-right {
+  min-width: 0;
+  padding: 30px 32px;
+}
+
+.journey-block {
+  margin-bottom: 27px;
+}
+
+.journey-block:last-child {
+  margin-bottom: 0;
+}
+
+.subheading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin: 0 0 13px;
+
+  color: #edf1f7;
+
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.subheading::before {
+  content: "";
+
+  width: 5px;
+  height: 5px;
+
+  flex: 0 0 auto;
+
+  border-radius: 50%;
+
+  background: #20c5a7;
+
+  box-shadow:
+    0 0 12px rgba(32, 197, 167, 0.55);
+}
+
+
+/* =========================================================
+   ACHIEVEMENTS
+========================================================= */
+
+.achievement-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 9px;
+}
+
+.achievement-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  min-width: 0;
+
+  padding: 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 9px;
+
+  background: rgba(255, 255, 255, 0.025);
+
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    background 0.25s ease;
+}
+
+.achievement-item:hover {
+  border-color: rgba(45, 177, 255, 0.25);
+
+  background: rgba(45, 177, 255, 0.035);
+
+  transform: translateY(-2px);
+}
+
+.achievement-icon {
+  width: 22px;
+  height: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 22px;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #15bfa4,
+      #3a89ff
+    );
+
+  color: #ffffff;
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.achievement-item strong {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #dce2eb;
+
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.achievement-item span {
+  display: block;
+
+  color: #697487;
+
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   TECHNOLOGIES
+========================================================= */
+
+.tech-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 7px;
+}
+
+.tech-list span {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 6px 9px;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.035);
+
+  color: #8791a3;
+
+  font-size: 9px;
+  line-height: 1;
+
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease;
+}
+
+.tech-list span:hover {
+  color: #ffffff;
+
+  border-color: rgba(45, 177, 255, 0.3);
+
+  background: rgba(45, 177, 255, 0.06);
+}
+
+
+/* =========================================================
+   HIGHLIGHTS
+========================================================= */
+
+.highlight-list {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.highlight-list li {
+  position: relative;
+
+  margin: 0 0 8px;
+  padding-left: 16px;
+
+  color: #747e90;
+
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.highlight-list li:last-child {
+  margin-bottom: 0;
+}
+
+.highlight-list li::before {
+  content: "▸";
+
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  color: #20c5a7;
+
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   DOTS
+========================================================= */
+
+.journey-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 16px;
+}
+
+.journey-dots span {
+  width: 4px;
+  height: 4px;
+
+  border-radius: 50%;
+
+  background: #394354;
+
+  transition:
+    width 0.25s ease,
+    background 0.25s ease;
+}
+
+.journey-dots span.active {
+  width: 17px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #14bda3,
+      #378dff
+    );
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .journey-card {
+    grid-template-columns: 1fr;
+  }
+
+  .journey-left {
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  .journey-right {
+    padding-top: 25px;
+  }
+
+}
+
+
+@media (max-width: 650px) {
+
+  .journey-tabs {
+    justify-content: flex-start;
+    overflow-x: auto;
+
+    padding-bottom: 4px;
+  }
+
+  .journey-tab {
+    white-space: nowrap;
+  }
+
+  .journey-left,
+  .journey-right {
+    padding: 22px 18px;
+  }
+
+  .achievement-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .journey-left h3 {
+    font-size: 18px;
+  }
+
+}
+
+
+@media (max-width: 420px) {
+
+  .company-logo-placeholder {
+    width: 72px;
+    height: 72px;
+  }
+
+  .journey-left h3 {
+    font-size: 17px;
+  }
+
+  .achievement-item {
+    padding: 10px;
+  }
+
+}
+
+/* =========================================================
+   PROFESSIONAL JOURNEY
+   MATCH TECHNICAL ARSENAL ORANGE THEME
+   COLOR ONLY - NO LAYOUT CHANGES
+========================================================= */
+
+
+/* ---------------------------------------------------------
+   JOURNEY TITLE
+--------------------------------------------------------- */
+
+.journey-section .section-head h2 span {
+  color: #ff5a1f !important;
+}
+
+
+/* ---------------------------------------------------------
+   JOURNEY EYEBROW
+--------------------------------------------------------- */
+
+.journey-section .eyebrow {
+  color: #ff5a1f !important;
+}
+
+.journey-section .eyebrow i {
+  background: #ff5a1f !important;
+  box-shadow: 0 0 14px rgba(255, 90, 31, 0.45) !important;
+}
+
+
+/* ---------------------------------------------------------
+   JOURNEY TABS
+--------------------------------------------------------- */
+
+.journey-section .journey-tab {
+  color: #777c86;
+  background: #0c0d10;
+  border-color: #202228;
+}
+
+.journey-section .journey-tab:hover {
+  color: #ffffff;
+  border-color: rgba(255, 90, 31, 0.45);
+}
+
+.journey-section .journey-tab.active {
+  color: #ffffff !important;
+
+  background: #ff5a1f !important;
+
+  border-color: #ff5a1f !important;
+
+  box-shadow:
+    0 0 18px rgba(255, 90, 31, 0.12);
+}
+
+
+/* ---------------------------------------------------------
+   JOURNEY CARD BORDER
+--------------------------------------------------------- */
+
+.journey-section .journey-card {
+  background: #08090b;
+  border-color: #202228;
+}
+
+
+/* ---------------------------------------------------------
+   LEFT SIDE DIVIDER
+--------------------------------------------------------- */
+
+.journey-section .journey-left {
+  border-color: #202228;
+}
+
+
+/* ---------------------------------------------------------
+   LOGO PLACEHOLDER
+--------------------------------------------------------- */
+
+.journey-section .company-logo-placeholder {
+  background: #090a0c;
+  border-color: #292b31;
+}
+
+
+/* ---------------------------------------------------------
+   ACHIEVEMENT CARDS
+--------------------------------------------------------- */
+
+.journey-section .achievement-item {
+  background: #0c0e12;
+  border-color: #202228;
+}
+
+.journey-section .achievement-item:hover {
+  background: #111216;
+  border-color: rgba(255, 90, 31, 0.32);
+}
+
+
+/* ---------------------------------------------------------
+   ACHIEVEMENT ICON
+--------------------------------------------------------- */
+
+.journey-section .achievement-icon {
+  background: #ff5a1f !important;
+
+  box-shadow:
+    0 0 12px rgba(255, 90, 31, 0.12);
+}
+
+
+/* ---------------------------------------------------------
+   SUB HEADINGS
+--------------------------------------------------------- */
+
+.journey-section .subheading {
+  color: #f5f5f5;
+}
+
+.journey-section .subheading::before {
+  background: #ff5a1f !important;
+
+  box-shadow:
+    0 0 10px rgba(255, 90, 31, 0.4) !important;
+}
+
+
+/* ---------------------------------------------------------
+   TECHNOLOGY TAGS
+--------------------------------------------------------- */
+
+.journey-section .tech-list span {
+  color: #777c86;
+
+  background: #0c0e12;
+
+  border-color: #202228;
+}
+
+.journey-section .tech-list span:hover {
+  color: #ffffff;
+
+  background: rgba(255, 90, 31, 0.07);
+
+  border-color: rgba(255, 90, 31, 0.4);
+}
+
+
+/* ---------------------------------------------------------
+   HIGHLIGHTS
+--------------------------------------------------------- */
+
+.journey-section .highlight-list li {
+  color: #777c86;
+}
+
+.journey-section .highlight-list li::before {
+  color: #ff5a1f !important;
+}
+
+
+/* ---------------------------------------------------------
+   JOURNEY DOTS
+--------------------------------------------------------- */
+
+.journey-section .journey-dots span {
+  background: #30333a;
+}
+
+.journey-section .journey-dots span.active {
+  background: #ff5a1f !important;
+}
+
+
+/* ---------------------------------------------------------
+   GENERAL JOURNEY ACCENTS
+--------------------------------------------------------- */
+
+.journey-section a {
+  color: #ff5a1f;
+}
+
+.journey-section strong {
+  color: #e8e9ec;
+}
