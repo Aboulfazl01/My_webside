@@ -1,505 +1,449 @@
 /* =========================================================
-   ABOLF AZL TURKMANI PORTFOLIO
-   MAIN JAVASCRIPT
-========================================================= */
-
-"use strict";
-
-
-/* =========================================================
-   DOM READY
+   PORTFOLIO JAVASCRIPT
+   Theme Toggle + Project Filter + Read More + Skills
+   + Journey Tabs + Mobile Menu + Scroll Reveal
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  document.body.classList.add("js-ready");
+  /* =========================================================
+     DARK / LIGHT MODE
+  ========================================================= */
 
-  initNavbar();
-  initMobileMenu();
-  initSmoothScroll();
-  initSkillTabs();
-  initJourneyTabs();
-  initProjectFilters();
-  initProjectModals();
-  initScrollReveal();
-  initActiveNavigation();
-  initImageFallback();
-  initKeyboard();
-});
+  const themeToggle = document.getElementById("themeToggle");
+  const themeIcon = document.getElementById("themeIcon");
 
+  /*
+    Theme system:
+    - Dark = default
+    - Light = body.light-mode
+    - Also sets data-theme="dark/light"
+    - Saves user's choice in localStorage
+  */
 
-/* =========================================================
-   NAVBAR
-========================================================= */
+  function updateThemeIcon() {
 
-function initNavbar() {
+    if (!themeIcon) return;
 
-  const header = document.querySelector(".header");
+    const isLight =
+      document.body.classList.contains("light-mode") ||
+      document.documentElement.getAttribute("data-theme") === "light";
 
-  if (!header) return;
-
-  function checkHeader() {
-
-    if (window.scrollY > 30) {
-      header.classList.add("scrolled");
+    if (isLight) {
+      themeIcon.textContent = "☀️";
+      themeToggle?.setAttribute("aria-label", "Switch to dark mode");
+      themeToggle?.setAttribute("title", "Dark Mode");
     } else {
-      header.classList.remove("scrolled");
+      themeIcon.textContent = "🌙";
+      themeToggle?.setAttribute("aria-label", "Switch to light mode");
+      themeToggle?.setAttribute("title", "Light Mode");
     }
+  }
+
+
+  function setTheme(theme, save = true) {
+
+    const isLight = theme === "light";
+
+    /* Body class */
+    document.body.classList.toggle(
+      "light-mode",
+      isLight
+    );
+
+    /* HTML data attribute */
+    document.documentElement.setAttribute(
+      "data-theme",
+      isLight ? "light" : "dark"
+    );
+
+    /* Save selected theme */
+    if (save) {
+      localStorage.setItem(
+        "theme",
+        isLight ? "light" : "dark"
+      );
+    }
+
+    updateThemeIcon();
+  }
+
+
+  /* =========================================================
+     LOAD SAVED THEME
+  ========================================================= */
+
+  let savedTheme = localStorage.getItem("theme");
+
+  /*
+    If there is no saved theme:
+    use system preference.
+  */
+
+  if (!savedTheme) {
+
+    const prefersLight =
+      window.matchMedia &&
+      window.matchMedia(
+        "(prefers-color-scheme: light)"
+      ).matches;
+
+    savedTheme =
+      prefersLight ? "light" : "dark";
+  }
+
+
+  /*
+    Only allow valid values.
+    Everything else becomes dark.
+  */
+
+  if (
+    savedTheme !== "light" &&
+    savedTheme !== "dark"
+  ) {
+    savedTheme = "dark";
+  }
+
+
+  setTheme(savedTheme, false);
+
+
+  /* =========================================================
+     THEME BUTTON
+  ========================================================= */
+
+  if (themeToggle) {
+
+    themeToggle.addEventListener(
+      "click",
+      (event) => {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const isLight =
+          document.body.classList.contains(
+            "light-mode"
+          );
+
+        setTheme(
+          isLight ? "dark" : "light",
+          true
+        );
+
+      }
+    );
 
   }
 
-  checkHeader();
 
-  window.addEventListener(
-    "scroll",
-    checkHeader,
-    { passive: true }
-  );
-}
+  /* =========================================================
+     SYSTEM THEME CHANGE
+  ========================================================= */
 
+  /*
+    Only follow system theme when the user
+    has never manually selected a theme.
+  */
 
-/* =========================================================
-   MOBILE MENU
-========================================================= */
+  if (window.matchMedia) {
 
-function initMobileMenu() {
-
-  const menuButton = document.querySelector(".menu-btn");
-  const navLinks = document.querySelector(".nav-links");
-
-  if (!menuButton || !navLinks) return;
-
-
-  menuButton.addEventListener("click", () => {
-
-    navLinks.classList.toggle("open");
-
-    const isOpen =
-      navLinks.classList.contains("open");
-
-    menuButton.setAttribute(
-      "aria-expanded",
-      isOpen ? "true" : "false"
-    );
-
-    menuButton.innerHTML =
-      isOpen ? "✕" : "☰";
-
-  });
-
-
-  /* Close menu after clicking link */
-
-  navLinks
-    .querySelectorAll("a")
-    .forEach(link => {
-
-      link.addEventListener("click", () => {
-
-        navLinks.classList.remove("open");
-
-        menuButton.setAttribute(
-          "aria-expanded",
-          "false"
-        );
-
-        menuButton.innerHTML = "☰";
-
-      });
-
-    });
-
-
-  /* Close when clicking outside */
-
-  document.addEventListener("click", event => {
-
-    const clickedInside =
-      navLinks.contains(event.target) ||
-      menuButton.contains(event.target);
-
-    if (!clickedInside) {
-
-      navLinks.classList.remove("open");
-
-      menuButton.setAttribute(
-        "aria-expanded",
-        "false"
+    const systemTheme =
+      window.matchMedia(
+        "(prefers-color-scheme: light)"
       );
 
-      menuButton.innerHTML = "☰";
+    systemTheme.addEventListener?.(
+      "change",
+      event => {
 
-    }
+        const userTheme =
+          localStorage.getItem("theme");
 
-  });
+        if (userTheme) return;
 
-}
+        setTheme(
+          event.matches ? "light" : "dark",
+          false
+        );
 
-
-/* =========================================================
-   SMOOTH SCROLL
-========================================================= */
-
-function initSmoothScroll() {
-
-  const links =
-    document.querySelectorAll(
-      'a[href^="#"]'
+      }
     );
 
-  links.forEach(link => {
-
-    link.addEventListener("click", event => {
-
-      const href =
-        link.getAttribute("href");
-
-      if (!href || href === "#") return;
-
-      const target =
-        document.querySelector(href);
-
-      if (!target) return;
-
-      event.preventDefault();
-
-      const header =
-        document.querySelector(".header");
-
-      const headerHeight =
-        header ? header.offsetHeight : 0;
-
-      const targetPosition =
-        target.getBoundingClientRect().top +
-        window.scrollY -
-        headerHeight -
-        15;
-
-      window.scrollTo({
-        top: targetPosition,
-        behavior: "smooth"
-      });
-
-    });
-
-  });
-
-}
+  }
 
 
-/* =========================================================
-   SKILLS TABS
-========================================================= */
+  /* =========================================================
+     MOBILE MENU
+  ========================================================= */
 
-function initSkillTabs() {
+  const menuBtn =
+    document.getElementById("menuBtn");
 
-  const tabs =
-    document.querySelectorAll(".skill-tab");
-
-  const panels =
-    document.querySelectorAll(".skill-panel");
-
-  if (!tabs.length || !panels.length) return;
+  const navLinks =
+    document.getElementById("navLinks");
 
 
-  tabs.forEach(tab => {
+  if (menuBtn && navLinks) {
 
-    tab.addEventListener("click", () => {
+    menuBtn.addEventListener(
+      "click",
+      () => {
 
-      const target =
-        tab.dataset.target ||
-        tab.getAttribute("data-tab");
+        navLinks.classList.toggle("open");
+        menuBtn.classList.toggle("active");
 
-      if (!target) return;
+        const isOpen =
+          navLinks.classList.contains("open");
 
-
-      /* Remove active tab */
-
-      tabs.forEach(item => {
-        item.classList.remove("active");
-      });
-
-      tab.classList.add("active");
-
-
-      /* Hide panels */
-
-      panels.forEach(panel => {
-
-        panel.classList.remove("active");
-
-      });
-
-
-      /* Show selected panel */
-
-      let targetPanel =
-        document.querySelector(
-          `[data-panel="${target}"]`
+        menuBtn.setAttribute(
+          "aria-expanded",
+          String(isOpen)
         );
 
-      if (!targetPanel) {
-
-        targetPanel =
-          document.getElementById(target);
-
       }
-
-      if (targetPanel) {
-
-        targetPanel.classList.add("active");
-
-      }
-
-    });
-
-  });
-
-}
+    );
 
 
-/* =========================================================
-   JOURNEY TABS
-========================================================= */
+    /* Close menu after clicking a link */
 
-function initJourneyTabs() {
+    navLinks
+      .querySelectorAll("a")
+      .forEach(link => {
 
-  const tabs =
-    document.querySelectorAll(".journey-tab");
+        link.addEventListener(
+          "click",
+          () => {
 
-  if (!tabs.length) return;
+            navLinks.classList.remove("open");
+            menuBtn.classList.remove("active");
 
+            menuBtn.setAttribute(
+              "aria-expanded",
+              "false"
+            );
 
-  tabs.forEach(tab => {
-
-    tab.addEventListener("click", () => {
-
-      tabs.forEach(item => {
-
-        item.classList.remove("active");
+          }
+        );
 
       });
 
-      tab.classList.add("active");
+  }
 
 
-      const target =
-        tab.dataset.target ||
-        tab.getAttribute("data-target");
+  /* =========================================================
+     PROJECT FILTERING
+  ========================================================= */
 
-
-      if (!target) return;
-
-
-      const panels =
-        document.querySelectorAll(
-          ".journey-panel"
-        );
-
-      panels.forEach(panel => {
-
-        panel.style.display = "none";
-
-      });
-
-
-      const panel =
-        document.querySelector(
-          `[data-panel="${target}"]`
-        );
-
-
-      if (panel) {
-
-        panel.style.display = "grid";
-
-      }
-
-    });
-
-  });
-
-}
-
-
-/* =========================================================
-   PROJECT FILTERS
-========================================================= */
-
-function initProjectFilters() {
-
-  const filters =
+  const filterButtons =
     document.querySelectorAll(".filter");
 
-  const projects =
+  const projectCards =
     document.querySelectorAll(".project-card");
 
-  if (!filters.length || !projects.length) return;
+
+  filterButtons.forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        filterButtons.forEach(btn => {
+          btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
 
 
-  filters.forEach(filter => {
-
-    filter.addEventListener("click", () => {
-
-      /* Active filter */
-
-      filters.forEach(item => {
-
-        item.classList.remove("active");
-
-      });
-
-      filter.classList.add("active");
+        const selectedFilter =
+          (
+            button.dataset.filter || "all"
+          ).toLowerCase();
 
 
-      const category =
-        filter.dataset.filter ||
-        filter.getAttribute("data-category");
+        projectCards.forEach(card => {
+
+          const categories =
+            card.dataset.category
+              ? card.dataset.category
+                  .toLowerCase()
+                  .split(/\s+/)
+              : [];
 
 
-      if (!category || category === "all") {
+          /* Show all */
 
-        projects.forEach(project => {
+          if (selectedFilter === "all") {
 
-          project.classList.remove("hidden");
+            card.style.display = "";
+
+            requestAnimationFrame(() => {
+
+              card.classList.remove(
+                "filter-hidden"
+              );
+
+            });
+
+            return;
+          }
+
+
+          /* Check category */
+
+          const matches =
+            categories.includes(
+              selectedFilter
+            );
+
+
+          if (matches) {
+
+            card.style.display = "";
+
+            requestAnimationFrame(() => {
+
+              card.classList.remove(
+                "filter-hidden"
+              );
+
+            });
+
+          } else {
+
+            card.classList.add(
+              "filter-hidden"
+            );
+
+
+            setTimeout(() => {
+
+              if (
+                card.classList.contains(
+                  "filter-hidden"
+                )
+              ) {
+
+                card.style.display = "none";
+
+              }
+
+            }, 250);
+
+          }
 
         });
 
-        return;
-
       }
-
-
-      projects.forEach(project => {
-
-        const categories =
-          project.dataset.category ||
-          project.getAttribute("data-category") ||
-          "";
-
-
-        const categoryList =
-          categories
-            .toLowerCase()
-            .split(",");
-
-
-        if (
-          categoryList.includes(
-            category.toLowerCase()
-          )
-        ) {
-
-          project.classList.remove("hidden");
-
-        } else {
-
-          project.classList.add("hidden");
-
-        }
-
-      });
-
-    });
+    );
 
   });
 
-}
 
-
-/* =========================================================
-   PROJECT MODALS
-========================================================= */
-
-function initProjectModals() {
+  /* =========================================================
+     READ MORE MODAL
+  ========================================================= */
 
   const modal =
-    document.querySelector(".modal");
-
-  if (!modal) return;
-
+    document.getElementById(
+      "projectModal"
+    );
 
   const modalTitle =
-    modal.querySelector(
-      "[data-modal-title]"
+    document.getElementById(
+      "modalTitle"
     );
 
-  const modalDescription =
-    modal.querySelector(
-      "[data-modal-description]"
+  const modalText =
+    document.getElementById(
+      "modalText"
     );
 
-  const closeButton =
-    modal.querySelector(".modal-close");
+  const modalClose =
+    document.getElementById(
+      "modalClose"
+    );
 
   const modalBackground =
-    modal.querySelector(".modal-bg");
+    modal
+      ? modal.querySelector(".modal-bg")
+      : null;
 
 
-  const readMoreButtons =
-    document.querySelectorAll(
-      ".read-more"
-    );
+  document
+    .querySelectorAll(".read-more")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          const title =
+            button.dataset.project ||
+            "Project";
 
 
-  readMoreButtons.forEach(button => {
-
-    button.addEventListener("click", () => {
-
-      const card =
-        button.closest(".project-card");
-
-      if (!card) return;
+          const description =
+            button.dataset.description ||
+            "More information about this project will be added soon.";
 
 
-      const title =
-        card.dataset.title ||
-        card.querySelector("h3")?.textContent ||
-        "Project";
+          if (!modal) return;
 
 
-      const description =
-        card.dataset.description ||
-        card.querySelector("p")?.textContent ||
-        "Project information.";
+          if (modalTitle) {
+            modalTitle.textContent =
+              title;
+          }
 
 
-      if (modalTitle) {
-
-        modalTitle.textContent = title;
-
-      }
-
-      if (modalDescription) {
-
-        modalDescription.textContent =
-          description;
-
-      }
+          if (modalText) {
+            modalText.textContent =
+              description;
+          }
 
 
-      modal.classList.add("open");
+          modal.classList.add("open");
 
-      document.body.style.overflow =
-        "hidden";
+
+          modal.setAttribute(
+            "aria-hidden",
+            "false"
+          );
+
+
+          document.body.classList.add(
+            "modal-open"
+          );
+
+        }
+      );
 
     });
-
-  });
 
 
   function closeModal() {
 
+    if (!modal) return;
+
     modal.classList.remove("open");
 
-    document.body.style.overflow = "";
+    modal.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    document.body.classList.remove(
+      "modal-open"
+    );
 
   }
 
 
-  if (closeButton) {
+  if (modalClose) {
 
-    closeButton.addEventListener(
+    modalClose.addEventListener(
       "click",
       closeModal
     );
@@ -517,484 +461,617 @@ function initProjectModals() {
   }
 
 
+  /* ESC closes modal */
+
   document.addEventListener(
     "keydown",
     event => {
 
-      if (
-        event.key === "Escape" &&
-        modal.classList.contains("open")
-      ) {
-
+      if (event.key === "Escape") {
         closeModal();
-
       }
 
     }
   );
 
-}
 
+  /* =========================================================
+     SKILL TABS
+  ========================================================= */
 
-/* =========================================================
-   SCROLL REVEAL
-========================================================= */
-
-function initScrollReveal() {
-
-  const elements =
+  const skillTabs =
     document.querySelectorAll(
-      ".reveal"
+      ".skill-tab"
     );
 
-  if (!elements.length) return;
+  const skillPanels =
+    document.querySelectorAll(
+      ".skill-panel"
+    );
 
 
-  /* If browser doesn't support observer */
+  skillTabs.forEach(tab => {
 
-  if (
-    !("IntersectionObserver" in window)
-  ) {
+    tab.addEventListener(
+      "click",
+      () => {
 
-    elements.forEach(element => {
-
-      element.classList.add(
-        "revealed"
-      );
-
-    });
-
-    return;
-
-  }
-
-
-  const observer =
-    new IntersectionObserver(
-      entries => {
-
-        entries.forEach(entry => {
-
-          if (!entry.isIntersecting) return;
-
-          entry.target.classList.add(
-            "revealed"
-          );
-
-          observer.unobserve(
-            entry.target
-          );
-
+        skillTabs.forEach(item => {
+          item.classList.remove("active");
         });
 
-      },
-      {
-        threshold: 0.12,
-        rootMargin: "0px 0px -50px 0px"
+
+        skillPanels.forEach(panel => {
+          panel.classList.remove("active");
+        });
+
+
+        tab.classList.add("active");
+
+
+        const target =
+          document.getElementById(
+            tab.dataset.target
+          );
+
+
+        if (target) {
+          target.classList.add("active");
+        }
+
+      }
+    );
+
+  });
+
+
+  /* =========================================================
+     JOURNEY TABS
+  ========================================================= */
+
+  const journeyTabs =
+    document.querySelectorAll(
+      ".journey-tab"
+    );
+
+  const jobRole =
+    document.getElementById(
+      "jobRole"
+    );
+
+  const jobCompany =
+    document.getElementById(
+      "jobCompany"
+    );
+
+  const jobLocation =
+    document.getElementById(
+      "jobLocation"
+    );
+
+  const jobDate =
+    document.getElementById(
+      "jobDate"
+    );
+
+  const achievements =
+    document.getElementById(
+      "achievements"
+    );
+
+  const techList =
+    document.getElementById(
+      "techList"
+    );
+
+  const highlights =
+    document.getElementById(
+      "highlights"
+    );
+
+  const journeyDots =
+    document.querySelectorAll(
+      ".journey-dots span"
+    );
+
+
+  const journeyData = [
+
+    {
+      role:
+        "Web Designer & Front-End Developer",
+
+      company:
+        "Personal / Freelance",
+
+      location:
+        "Remote",
+
+      date:
+        "2025 - Present",
+
+      achievements: [
+
+        [
+          "Responsive Websites",
+          "Designed responsive websites for desktop, tablet and mobile."
+        ],
+
+        [
+          "Modern UI Development",
+          "Built clean and modern interfaces using HTML, CSS and JavaScript."
+        ],
+
+        [
+          "UI/UX Design",
+          "Created user-focused interfaces and prototypes in Figma."
+        ],
+
+        [
+          "Performance Focused",
+          "Focused on clean structure, smooth interactions and usability."
+        ]
+
+      ],
+
+      technologies: [
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "UI/UX",
+        "Figma",
+        "Responsive Design"
+      ],
+
+      highlights: [
+        "Designed modern and responsive web interfaces",
+        "Converted Figma designs into functional websites",
+        "Built clean and reusable UI components",
+        "Focused on user experience and visual consistency"
+      ]
+
+    },
+
+
+    {
+      role:
+        "Front-End Developer",
+
+      company:
+        "Freelance Projects",
+
+      location:
+        "Remote",
+
+      date:
+        "2025 - Present",
+
+      achievements: [
+
+        [
+          "Interactive Interfaces",
+          "Developed interactive interfaces with modern JavaScript."
+        ],
+
+        [
+          "Responsive Development",
+          "Created layouts optimized for desktop, tablet and mobile."
+        ],
+
+        [
+          "Clean Code",
+          "Structured front-end code for easier maintenance."
+        ],
+
+        [
+          "Performance",
+          "Focused on fast loading and smooth user interactions."
+        ]
+
+      ],
+
+      technologies: [
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "Responsive Design",
+        "Git",
+        "GitHub"
+      ],
+
+      highlights: [
+        "Developed responsive front-end websites",
+        "Added interactive JavaScript functionality",
+        "Improved website structure and usability",
+        "Created reusable front-end components"
+      ]
+
+    },
+
+
+    {
+      role:
+        "UI/UX Designer",
+
+      company:
+        "Personal / Freelance",
+
+      location:
+        "Remote",
+
+      date:
+        "2025 - Present",
+
+      achievements: [
+
+        [
+          "UI Design",
+          "Designed clean and modern user interfaces."
+        ],
+
+        [
+          "UX Research",
+          "Focused on simple and intuitive user experiences."
+        ],
+
+        [
+          "Figma Prototypes",
+          "Created interactive prototypes and reusable components."
+        ],
+
+        [
+          "Design Systems",
+          "Built consistent visual systems for digital products."
+        ]
+
+      ],
+
+      technologies: [
+        "Figma",
+        "UI Design",
+        "UX Design",
+        "Wireframing",
+        "Prototyping",
+        "Design Systems"
+      ],
+
+      highlights: [
+        "Designed modern UI systems",
+        "Created interactive Figma prototypes",
+        "Designed user flows and wireframes",
+        "Focused on visual consistency and usability"
+      ]
+
+    }
+
+  ];
+
+
+  function updateJourney(index) {
+
+    const data =
+      journeyData[index];
+
+    if (!data) return;
+
+
+    if (jobRole) {
+      jobRole.textContent =
+        data.role;
+    }
+
+
+    if (jobCompany) {
+      jobCompany.textContent =
+        data.company;
+    }
+
+
+    if (jobLocation) {
+      jobLocation.textContent =
+        data.location;
+    }
+
+
+    if (jobDate) {
+      jobDate.textContent =
+        data.date;
+    }
+
+
+    if (achievements) {
+
+      achievements.innerHTML =
+        data.achievements
+          .map(item => `
+            <div class="achievement-item">
+
+              <div class="achievement-icon">
+                ✓
+              </div>
+
+              <div>
+                <strong>${item[0]}</strong>
+                <span>${item[1]}</span>
+              </div>
+
+            </div>
+          `)
+          .join("");
+
+    }
+
+
+    if (techList) {
+
+      techList.innerHTML =
+        data.technologies
+          .map(
+            tech =>
+              `<span>${tech}</span>`
+          )
+          .join("");
+
+    }
+
+
+    if (highlights) {
+
+      highlights.innerHTML =
+        data.highlights
+          .map(
+            item =>
+              `<li>${item}</li>`
+          )
+          .join("");
+
+    }
+
+
+    journeyTabs.forEach(
+      (tab, tabIndex) => {
+
+        tab.classList.toggle(
+          "active",
+          tabIndex === index
+        );
+
       }
     );
 
 
-  elements.forEach(element => {
+    journeyDots.forEach(
+      (dot, dotIndex) => {
 
-    observer.observe(element);
+        dot.classList.toggle(
+          "active",
+          dotIndex === index
+        );
 
-  });
+      }
+    );
 
-}
+  }
 
 
-/* =========================================================
-   ACTIVE NAVIGATION
-========================================================= */
+  journeyTabs.forEach(
+    (tab, index) => {
 
-function initActiveNavigation() {
+      tab.addEventListener(
+        "click",
+        () => updateJourney(index)
+      );
+
+    }
+  );
+
+
+  /* =========================================================
+     SCROLL REVEAL
+  ========================================================= */
+
+  const revealElements =
+    document.querySelectorAll(
+      ".reveal"
+    );
+
+
+  if (
+    "IntersectionObserver" in window
+  ) {
+
+    const observer =
+      new IntersectionObserver(
+        entries => {
+
+          entries.forEach(
+            entry => {
+
+              if (
+                entry.isIntersecting
+              ) {
+
+                entry.target.classList.add(
+                  "visible"
+                );
+
+                observer.unobserve(
+                  entry.target
+                );
+
+              }
+
+            }
+          );
+
+        },
+        {
+          threshold: 0.12
+        }
+      );
+
+
+    revealElements.forEach(
+      element => {
+        observer.observe(element);
+      }
+    );
+
+  } else {
+
+    revealElements.forEach(
+      element => {
+        element.classList.add(
+          "visible"
+        );
+      }
+    );
+
+  }
+
+
+  /* =========================================================
+     ACTIVE NAVIGATION
+  ========================================================= */
+
+  const navLinksItems =
+    document.querySelectorAll(
+      ".nav-link"
+    );
 
   const sections =
     document.querySelectorAll(
       "section[id]"
     );
 
-  const navLinks =
-    document.querySelectorAll(
-      '.nav-link[href^="#"]'
-    );
 
-  if (!sections.length || !navLinks.length)
-    return;
+  if (
+    "IntersectionObserver" in window
+  ) {
 
+    const sectionObserver =
+      new IntersectionObserver(
+        entries => {
 
-  const observer =
-    new IntersectionObserver(
-      entries => {
+          entries.forEach(
+            entry => {
 
-        entries.forEach(entry => {
-
-          if (!entry.isIntersecting)
-            return;
-
-
-          const id =
-            entry.target.getAttribute(
-              "id"
-            );
+              if (
+                !entry.isIntersecting
+              ) {
+                return;
+              }
 
 
-          navLinks.forEach(link => {
-
-            link.classList.remove(
-              "active"
-            );
-
-
-            const href =
-              link.getAttribute(
-                "href"
-              );
+              const id =
+                entry.target.getAttribute(
+                  "id"
+                );
 
 
-            if (
-              href === `#${id}`
-            ) {
+              navLinksItems.forEach(
+                link => {
 
-              link.classList.add(
-                "active"
+                  link.classList.toggle(
+                    "active",
+                    link.getAttribute(
+                      "href"
+                    ) === `#${id}`
+                  );
+
+                }
               );
 
             }
-
-          });
-
-        });
-
-      },
-      {
-        rootMargin:
-          "-35% 0px -55% 0px",
-
-        threshold: 0
-      }
-    );
-
-
-  sections.forEach(section => {
-
-    observer.observe(section);
-
-  });
-
-}
-
-
-/* =========================================================
-   IMAGE FALLBACK
-========================================================= */
-
-function initImageFallback() {
-
-  const images =
-    document.querySelectorAll(
-      "img"
-    );
-
-
-  images.forEach(image => {
-
-    image.addEventListener(
-      "error",
-      () => {
-
-        image.style.display =
-          "none";
-
-        const parent =
-          image.parentElement;
-
-        if (!parent) return;
-
-
-        const placeholder =
-          parent.querySelector(
-            ".photo-placeholder"
           );
 
-
-        if (placeholder) {
-
-          placeholder.style.display =
-            "grid";
-
+        },
+        {
+          rootMargin:
+            "-35% 0px -55% 0px"
         }
-
-      }
-    );
+      );
 
 
-    /* If there is an image, hide placeholder */
-
-    if (
-      image.complete &&
-      image.naturalWidth > 0
-    ) {
-
-      const parent =
-        image.parentElement;
-
-      const placeholder =
-        parent?.querySelector(
-          ".photo-placeholder"
+    sections.forEach(
+      section => {
+        sectionObserver.observe(
+          section
         );
-
-
-      if (placeholder) {
-
-        placeholder.style.display =
-          "none";
-
       }
-
-    }
-
-  });
-
-}
-
-
-/* =========================================================
-   KEYBOARD SHORTCUTS
-========================================================= */
-
-function initKeyboard() {
-
-  document.addEventListener(
-    "keydown",
-    event => {
-
-      /* Escape mobile menu */
-
-      if (event.key === "Escape") {
-
-        const navLinks =
-          document.querySelector(
-            ".nav-links"
-          );
-
-        const menuButton =
-          document.querySelector(
-            ".menu-btn"
-          );
-
-
-        if (navLinks) {
-
-          navLinks.classList.remove(
-            "open"
-          );
-
-        }
-
-
-        if (menuButton) {
-
-          menuButton.innerHTML =
-            "☰";
-
-          menuButton.setAttribute(
-            "aria-expanded",
-            "false"
-          );
-
-        }
-
-      }
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   CONTACT BUTTON
-========================================================= */
-
-document.addEventListener(
-  "click",
-  event => {
-
-    const button =
-      event.target.closest(
-        "[data-contact]"
-      );
-
-    if (!button) return;
-
-
-    const contactType =
-      button.dataset.contact;
-
-
-    if (contactType === "email") {
-
-      window.location.href =
-        "mailto:your@email.com";
-
-    }
-
-
-    if (contactType === "linkedin") {
-
-      window.open(
-        "https://www.linkedin.com/",
-        "_blank",
-        "noopener,noreferrer"
-      );
-
-    }
-
-
-    if (contactType === "github") {
-
-      window.open(
-        "https://github.com/",
-        "_blank",
-        "noopener,noreferrer"
-      );
-
-    }
+    );
 
   }
-);
 
 
-/* =========================================================
-   BUTTON RIPPLE EFFECT
-========================================================= */
+  /* =========================================================
+     SMOOTH SCROLL
+  ========================================================= */
 
-document.addEventListener(
-  "click",
-  event => {
+  document
+    .querySelectorAll(
+      'a[href^="#"]'
+    )
+    .forEach(link => {
 
-    const button =
-      event.target.closest(
-        ".btn, .nav-cta, .filter, .skill-tab, .journey-tab"
+      link.addEventListener(
+        "click",
+        event => {
+
+          const targetId =
+            link.getAttribute(
+              "href"
+            );
+
+
+          if (
+            !targetId ||
+            targetId === "#"
+          ) {
+            return;
+          }
+
+
+          let target = null;
+
+          try {
+            target =
+              document.querySelector(
+                targetId
+              );
+          } catch (error) {
+            return;
+          }
+
+
+          if (!target) return;
+
+
+          event.preventDefault();
+
+
+          target.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+
+        }
       );
-
-    if (!button) return;
-
-
-    const ripple =
-      document.createElement(
-        "span"
-      );
-
-
-    ripple.style.position =
-      "absolute";
-
-    ripple.style.width =
-      "8px";
-
-    ripple.style.height =
-      "8px";
-
-    ripple.style.borderRadius =
-      "50%";
-
-    ripple.style.background =
-      "rgba(255,255,255,.25)";
-
-    ripple.style.pointerEvents =
-      "none";
-
-    ripple.style.transform =
-      "scale(1)";
-
-    ripple.style.opacity =
-      "1";
-
-    ripple.style.transition =
-      "transform .45s ease, opacity .45s ease";
-
-
-    const rect =
-      button.getBoundingClientRect();
-
-
-    ripple.style.left =
-      `${event.clientX - rect.left - 4}px`;
-
-    ripple.style.top =
-      `${event.clientY - rect.top - 4}px`;
-
-
-    const previousPosition =
-      getComputedStyle(button)
-        .position;
-
-
-    if (
-      previousPosition ===
-      "static"
-    ) {
-
-      button.style.position =
-        "relative";
-
-    }
-
-
-    button.appendChild(
-      ripple
-    );
-
-
-    requestAnimationFrame(() => {
-
-      ripple.style.transform =
-        "scale(25)";
-
-      ripple.style.opacity =
-        "0";
 
     });
 
 
-    setTimeout(() => {
+  /* =========================================================
+     INITIALIZE
+  ========================================================= */
 
-      ripple.remove();
+  updateThemeIcon();
 
-    }, 500);
 
+  /* First journey tab */
+
+  if (journeyTabs.length) {
+    updateJourney(0);
   }
-);
 
-
-/* =========================================================
-   PAGE LOADED
-========================================================= */
-
-window.addEventListener(
-  "load",
-  () => {
-
-    document.body.classList.add(
-      "page-loaded"
-    );
-
-  }
-);
-
-
-/* =========================================================
-   CONSOLE
-========================================================= */
-
-console.log(
-  "%cAbolfazl Turkmani Portfolio",
-  "font-size:18px;font-weight:bold;color:#ff5b1a;"
-);
-
-console.log(
-  "HTML • CSS • JavaScript • UI/UX • Figma"
-);
+});

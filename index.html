@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
@@ -19,20 +19,20 @@
 <header class="header" id="header">
   <div class="container nav">
 
-<a class="brand" href="#home">
+    <a class="brand" href="#home">
 
-  <span class="brand-mark">
-    <img
-      src="/images/ChatGPT Image Aug 25, 2026, 12_31_28 AM.png"
-      alt="Abolfazl Turkmani Logo"
-    >
-  </span>
+      <span class="brand-mark">
+        <img
+          src="/images/ChatGPT Image Aug 25, 2026, 12_31_28 AM.png"
+          alt="Abolfazl Turkmani Logo"
+        >
+      </span>
 
-  <span class="brand-text">
-    Aboulfazl <b>Turkmani</b>
-  </span>
+      <span class="brand-text">
+        Abolfazl <b>Turkmani</b>
+      </span>
 
-</a>
+    </a>
 
     <nav class="nav-links" id="navLinks">
       <a class="nav-link active" href="#home">Home</a>
@@ -42,6 +42,16 @@
       <a class="nav-link" href="#projects">Projects</a>
       <a class="nav-link" href="#contact">Contact</a>
     </nav>
+
+    <button
+      class="theme-toggle"
+      id="themeToggle"
+      type="button"
+      aria-label="Toggle dark and light mode"
+      title="Change theme"
+    >
+      <span id="themeIcon">🌙</span>
+    </button>
 
     <a class="nav-cta" href="#contact">
       Let's Talk <span>↗</span>
@@ -127,7 +137,6 @@
 
       <div class="hero-photo-card">
 
-        <!-- عکس خودت را اینجا قرار بده -->
         <img
           id="heroPhoto"
           src="/images/ChatGPT Image Aug 20, 2026, 09_46_02 PM.png"
@@ -180,6 +189,9 @@
     </div>
 
 
+    <!-- PHOTO REMOVED FROM HERE -->
+
+
     <div class="about-copy reveal">
 
       <p>
@@ -228,37 +240,25 @@
 
     </div>
 
-
     <div class="skill-tabs">
 
-      <button
-        class="skill-tab active"
-        data-target="frontend">
+      <button class="skill-tab active" data-target="frontend">
         Frontend
       </button>
 
-      <button
-        class="skill-tab"
-        data-target="design">
+      <button class="skill-tab" data-target="design">
         UI/UX & Design
       </button>
 
-      <button
-        class="skill-tab"
-        data-target="tools">
+      <button class="skill-tab" data-target="tools">
         Tools
       </button>
 
-      <button
-        class="skill-tab"
-        data-target="special">
+      <button class="skill-tab" data-target="special">
         Specializations
       </button>
 
     </div>
-
-
-    <!-- FRONTEND -->
 
     <div class="skill-panel active" id="frontend">
 
@@ -328,9 +328,6 @@
 
     </div>
 
-
-    <!-- DESIGN -->
-
     <div class="skill-panel" id="design">
 
       <article class="skill-card">
@@ -357,18 +354,7 @@
         </div>
       </article>
 
-      <article class="skill-card">
-        <div class="skill-icon proto">◈</div>
-        <div>
-          <h3>Prototyping</h3>
-          <p>Interactive product concepts</p>
-        </div>
-      </article>
-
     </div>
-
-
-    <!-- TOOLS -->
 
     <div class="skill-panel" id="tools">
 
@@ -377,6 +363,14 @@
         <div>
           <h3>Git</h3>
           <p>Version control workflow</p>
+        </div>
+      </article>
+
+      <article class="skill-card">
+        <div class="skill-icon github">GH</div>
+        <div>
+          <h3>GitHub</h3>
+          <p>Code hosting & collaboration</p>
         </div>
       </article>
 
@@ -405,9 +399,6 @@
       </article>
 
     </div>
-
-
-    <!-- SPECIAL -->
 
     <div class="skill-panel" id="special">
 
@@ -445,7 +436,6 @@
 
     </div>
 
-
     <div class="learning-card reveal">
 
       <h3>
@@ -472,15 +462,11 @@
 </section>
 
 
-<!-- =========================================================
-     PROFESSIONAL JOURNEY
-========================================================= -->
+<!-- ================= JOURNEY ================= -->
 
 <section class="section journey-section" id="journey">
 
   <div class="container">
-
-    <!-- SECTION HEADER -->
 
     <div class="section-head">
 
@@ -496,49 +482,25 @@
 
     </div>
 
-
-    <!-- JOURNEY TABS -->
-
     <div class="journey-tabs">
 
-      <button
-        class="journey-tab active"
-        data-job="0"
-        type="button"
-      >
+      <button class="journey-tab active" data-job="0" type="button">
         Web Design
       </button>
 
-      <button
-        class="journey-tab"
-        data-job="1"
-        type="button"
-      >
+      <button class="journey-tab" data-job="1" type="button">
         Front-End
       </button>
 
-      <button
-        class="journey-tab"
-        data-job="2"
-        type="button"
-      >
+      <button class="journey-tab" data-job="2" type="button">
         UI/UX
       </button>
 
     </div>
 
-
-    <!-- JOURNEY CARD -->
-
     <article class="journey-card reveal">
 
-      <!-- ===============================================
-           LEFT SIDE
-      ================================================ -->
-
       <div class="journey-left">
-
-        <!-- YOUR LOGO -->
 
         <div class="company-logo-placeholder">
 
@@ -549,62 +511,30 @@
 
         </div>
 
-
-        <!-- ROLE -->
-
         <h3 id="jobRole">
           Web Designer & Front-End Developer
         </h3>
-
-
-        <!-- COMPANY -->
 
         <p id="jobCompany">
           Personal / Freelance
         </p>
 
-
-        <!-- LOCATION -->
-
         <p id="jobLocation">
           Remote
         </p>
-
-
-        <!-- DATE -->
 
         <p id="jobDate">
           2025 - Present
         </p>
 
-
-        <!-- BADGES -->
-
         <div class="badges">
-
-          <span>
-            Ongoing
-          </span>
-
-          <span>
-            Remote
-          </span>
-
+          <span>Ongoing</span>
+          <span>Remote</span>
         </div>
 
       </div>
 
-
-      <!-- ===============================================
-           RIGHT SIDE
-      ================================================ -->
-
       <div class="journey-right">
-
-
-        <!-- =============================================
-             KEY ACHIEVEMENTS
-        ============================================== -->
 
         <div class="journey-block">
 
@@ -612,101 +542,43 @@
             Key Achievements
           </h3>
 
-          <div
-            class="achievement-grid"
-            id="achievements"
-          >
+          <div class="achievement-grid" id="achievements">
 
             <div class="achievement-item">
-
-              <div class="achievement-icon">
-                ✓
-              </div>
-
+              <div class="achievement-icon">✓</div>
               <div>
-                <strong>
-                  Responsive Websites
-                </strong>
-
-                <span>
-                  Designed responsive websites for desktop,
-                  tablet and mobile.
-                </span>
+                <strong>Responsive Websites</strong>
+                <span>Designed responsive websites for desktop, tablet and mobile.</span>
               </div>
-
             </div>
 
-
             <div class="achievement-item">
-
-              <div class="achievement-icon">
-                ✓
-              </div>
-
+              <div class="achievement-icon">✓</div>
               <div>
-                <strong>
-                  Modern UI Development
-                </strong>
-
-                <span>
-                  Built clean and modern interfaces using
-                  HTML, CSS and JavaScript.
-                </span>
+                <strong>Modern UI Development</strong>
+                <span>Built clean and modern interfaces using HTML, CSS and JavaScript.</span>
               </div>
-
             </div>
 
-
             <div class="achievement-item">
-
-              <div class="achievement-icon">
-                ✓
-              </div>
-
+              <div class="achievement-icon">✓</div>
               <div>
-                <strong>
-                  UI/UX Design
-                </strong>
-
-                <span>
-                  Created user-focused interfaces and
-                  prototypes in Figma.
-                </span>
-
+                <strong>UI/UX Design</strong>
+                <span>Created user-focused interfaces and prototypes in Figma.</span>
               </div>
-
             </div>
 
-
             <div class="achievement-item">
-
-              <div class="achievement-icon">
-                ✓
-              </div>
-
+              <div class="achievement-icon">✓</div>
               <div>
-
-                <strong>
-                  Performance Focused
-                </strong>
-
-                <span>
-                  Focused on clean structure, smooth
-                  interactions and usability.
-                </span>
-
+                <strong>Performance Focused</strong>
+                <span>Focused on clean structure, smooth interactions and usability.</span>
               </div>
-
             </div>
 
           </div>
 
         </div>
-
-
-        <!-- =============================================
-             TECHNOLOGIES
-        ============================================== -->
 
         <div class="journey-block">
 
@@ -714,43 +586,16 @@
             Technologies Used
           </h3>
 
-          <div
-            class="tech-list"
-            id="techList"
-          >
-
-            <span>
-              HTML5
-            </span>
-
-            <span>
-              CSS3
-            </span>
-
-            <span>
-              JavaScript
-            </span>
-
-            <span>
-              UI/UX
-            </span>
-
-            <span>
-              Figma
-            </span>
-
-            <span>
-              Responsive Design
-            </span>
-
+          <div class="tech-list" id="techList">
+            <span>HTML5</span>
+            <span>CSS3</span>
+            <span>JavaScript</span>
+            <span>UI/UX</span>
+            <span>Figma</span>
+            <span>Responsive Design</span>
           </div>
 
         </div>
-
-
-        <!-- =============================================
-             NOTABLE HIGHLIGHTS
-        ============================================== -->
 
         <div class="journey-block">
 
@@ -758,51 +603,32 @@
             Notable Highlights
           </h3>
 
-          <ul
-            class="highlight-list"
-            id="highlights"
-          >
+          <ul class="highlight-list" id="highlights">
 
-            <li>
-              Designed modern and responsive web interfaces
-            </li>
-
-            <li>
-              Converted Figma designs into functional websites
-            </li>
-
-            <li>
-              Built clean and reusable UI components
-            </li>
-
-            <li>
-              Focused on user experience and visual consistency
-            </li>
+            <li>Designed modern and responsive web interfaces</li>
+            <li>Converted Figma designs into functional websites</li>
+            <li>Built clean and reusable UI components</li>
+            <li>Focused on user experience and visual consistency</li>
 
           </ul>
 
         </div>
 
-
       </div>
 
     </article>
 
-
-    <!-- JOURNEY DOTS -->
-
     <div class="journey-dots">
-
       <span class="active"></span>
       <span></span>
       <span></span>
-
     </div>
-
 
   </div>
 
 </section>
+
+
 <!-- ================= PROJECTS ================= -->
 
 <section class="projects section" id="projects">
@@ -827,61 +653,42 @@
 
     </div>
 
-
     <div class="project-filters">
 
-      <button
-        class="filter active"
-        data-filter="all">
+      <button class="filter active" data-filter="all">
         All Projects <b>6</b>
       </button>
 
-      <button
-        class="filter"
-        data-filter="frontend">
+      <button class="filter" data-filter="frontend">
         Front-End <b>3</b>
       </button>
 
-      <button
-        class="filter"
-        data-filter="uiux">
+      <button class="filter" data-filter="uiux">
         UI/UX <b>2</b>
       </button>
 
-      <button
-        class="filter"
-        data-filter="web">
+      <button class="filter" data-filter="web">
         Web Design <b>1</b>
       </button>
 
     </div>
 
-
     <div class="project-grid">
 
-
-      <article
-        class="project-card reveal"
-        data-category="frontend web">
+      <article class="project-card reveal" data-category="frontend">
 
         <div class="project-image">
-
-    <img
-        src="/images/Screenshot 2026-08-23 233600.png"
-        alt="Modern Business Website"
-    >
-
-</div>
+          <img
+            src="/images/Screenshot 2026-08-23 233600.png"
+            alt="Modern Business Website"
+          >
+        </div>
 
         <div class="project-body">
 
-          <span class="status">
-            completed
-          </span>
+          <span class="status">completed</span>
 
-          <h3>
-            Modern Business Website
-          </h3>
+          <h3>Modern Business Website</h3>
 
           <p>
             Responsive business website focused on clean UI,
@@ -896,7 +703,9 @@
 
           <button
             class="read-more"
-            data-project="Modern Business Website">
+            data-project="Modern Business Website"
+            data-description="A complete responsive business website focused on clean UI, accessibility, performance, responsive layouts and professional presentation using HTML, CSS and JavaScript."
+          >
             Read More
           </button>
 
@@ -905,28 +714,20 @@
       </article>
 
 
-      <article
-        class="project-card reveal"
-        data-category="uiux">
+      <article class="project-card reveal" data-category="uiux">
 
         <div class="project-image">
-
-    <img
-        src="/images/Screenshot 2026-08-24 235840.png"
-        alt="Modern Business Website"
-    >
-
-</div>
+          <img
+            src="/images/Screenshot 2026-08-24 235840.png"
+            alt="Dashboard UI Concept"
+          >
+        </div>
 
         <div class="project-body">
 
-          <span class="status">
-            completed
-          </span>
+          <span class="status">completed</span>
 
-          <h3>
-            Dashboard UI Concept
-          </h3>
+          <h3>Dashboard UI Concept</h3>
 
           <p>
             A clean dashboard interface designed in Figma
@@ -941,7 +742,9 @@
 
           <button
             class="read-more"
-            data-project="Dashboard UI Concept">
+            data-project="Dashboard UI Concept"
+            data-description="A modern dashboard interface designed in Figma with reusable components, clear visual hierarchy, consistent spacing and a user-focused experience."
+          >
             Read More
           </button>
 
@@ -950,28 +753,20 @@
       </article>
 
 
-      <article
-        class="project-card reveal"
-        data-category="frontend">
+      <article class="project-card reveal" data-category="frontend">
 
-       <div class="project-image">
-
-    <img
-        src="/images/Screenshot 2026-08-24 235938.png"
-        alt="Modern Business Website"
-    >
-
-</div>
+        <div class="project-image">
+          <img
+            src="/images/Screenshot 2026-08-24 235938.png"
+            alt="Landing Page"
+          >
+        </div>
 
         <div class="project-body">
 
-          <span class="status">
-            completed
-          </span>
+          <span class="status">completed</span>
 
-          <h3>
-            Landing Page
-          </h3>
+          <h3>Landing Page</h3>
 
           <p>
             A modern landing page with responsive sections,
@@ -986,7 +781,9 @@
 
           <button
             class="read-more"
-            data-project="Landing Page">
+            data-project="Landing Page"
+            data-description="A responsive landing page with modern sections, smooth interactions, clear calls to action and layouts optimized for desktop, tablet and mobile."
+          >
             Read More
           </button>
 
@@ -995,28 +792,20 @@
       </article>
 
 
-      <article
-        class="project-card reveal"
-        data-category="uiux">
+      <article class="project-card reveal" data-category="uiux">
 
-       <div class="project-image">
-
-    <img
-        src="/images/Screenshot 2026-08-25 000028.png"
-        alt="Modern Business Website"
-    >
-
-</div>
+        <div class="project-image">
+          <img
+            src="/images/Screenshot 2026-08-25 000028.png"
+            alt="Mobile App UI"
+          >
+        </div>
 
         <div class="project-body">
 
-          <span class="status">
-            completed
-          </span>
+          <span class="status">completed</span>
 
-          <h3>
-            Mobile App UI
-          </h3>
+          <h3>Mobile App UI</h3>
 
           <p>
             Mobile-first UI/UX concept with user flows,
@@ -1031,7 +820,9 @@
 
           <button
             class="read-more"
-            data-project="Mobile App UI">
+            data-project="Mobile App UI"
+            data-description="A mobile-first UI/UX concept focused on simple navigation, user flows, reusable components and an intuitive experience designed in Figma."
+          >
             Read More
           </button>
 
@@ -1040,28 +831,20 @@
       </article>
 
 
-      <article
-        class="project-card reveal"
-        data-category="frontend">
+      <article class="project-card reveal" data-category="frontend">
 
         <div class="project-image">
-
-    <img
-        src="/images/ChatGPT Image Aug 25, 2026, 12_14_36 AM.png"
-        alt="Modern Business Website"
-    >
-
-</div>
+          <img
+            src="/images/ChatGPT Image Aug 25, 2026, 12_14_36 AM.png"
+            alt="Portfolio Website"
+          >
+        </div>
 
         <div class="project-body">
 
-          <span class="status">
-            completed
-          </span>
+          <span class="status">completed</span>
 
-          <h3>
-            Portfolio Website
-          </h3>
+          <h3>Portfolio Website</h3>
 
           <p>
             Personal portfolio built with semantic HTML,
@@ -1076,7 +859,9 @@
 
           <button
             class="read-more"
-            data-project="Portfolio Website">
+            data-project="Portfolio Website"
+            data-description="A personal portfolio created to showcase skills and projects using semantic HTML, modern CSS and vanilla JavaScript with a responsive structure."
+          >
             Read More
           </button>
 
@@ -1085,28 +870,20 @@
       </article>
 
 
-      <article
-        class="project-card reveal"
-        data-category="web">
+      <article class="project-card reveal" data-category="web">
 
         <div class="project-image">
-
-    <img
-        src="/images/ChatGPT Image Aug 25, 2026, 12_13_06 AM.png"
-        alt="Modern Business Website"
-    >
-
-</div>
+          <img
+            src="/images/ChatGPT Image Aug 25, 2026, 12_13_06 AM.png"
+            alt="Creative Web Design"
+          >
+        </div>
 
         <div class="project-body">
 
-          <span class="status">
-            completed
-          </span>
+          <span class="status">completed</span>
 
-          <h3>
-            Creative Web Design
-          </h3>
+          <h3>Creative Web Design</h3>
 
           <p>
             Visual website concept focused on typography,
@@ -1120,7 +897,9 @@
 
           <button
             class="read-more"
-            data-project="Creative Web Design">
+            data-project="Creative Web Design"
+            data-description="A creative web design concept focused on typography, spacing, visual hierarchy, dark/light presentation and polished interactions."
+          >
             Read More
           </button>
 
@@ -1129,7 +908,6 @@
       </article>
 
     </div>
-
 
     <div class="project-cta reveal">
 
@@ -1145,9 +923,7 @@
         </p>
       </div>
 
-      <a
-        class="btn btn-primary"
-        href="#contact">
+      <a class="btn btn-primary" href="#contact">
         Let's Work Together ↗
       </a>
 
@@ -1181,10 +957,7 @@
 
     </div>
 
-
     <div class="contact-grid">
-
-      <!-- EMAIL -->
 
       <div class="contact-card">
 
@@ -1207,16 +980,14 @@
         </div>
 
         <a
-          href="turkmaniaboulfazl@gmail.com"
+          href="mailto:turkmaniaboulfazl@gmail.com"
           class="contact-link"
         >
-          your@email.com →
+          turkmaniaboulfazl@gmail.com →
         </a>
 
       </div>
 
-
-      <!-- LINKEDIN -->
 
       <div class="contact-card">
 
@@ -1251,7 +1022,6 @@
 
     </div>
 
-
     <div class="quick-response">
 
       <span>⚡</span>
@@ -1269,6 +1039,8 @@
   </div>
 
 </section>
+
+
 <!-- ================= FOOTER ================= -->
 
 <footer class="footer">
@@ -1279,12 +1051,9 @@
       © 2026 Abolfazl Turkmani. All rights reserved.
     </p>
 
-
     <div class="footer-links">
 
-      <!-- EMAIL -->
-
-      <a href="turkmaniaboulfazl@gmail.com">
+      <a href="mailto:turkmaniaboulfazl@gmail.com">
 
         <span class="footer-icon">
 
@@ -1299,8 +1068,6 @@
 
       </a>
 
-
-      <!-- LINKEDIN -->
 
       <a
         href="#"
@@ -1321,16 +1088,20 @@
 
       </a>
 
+    </div>
 
-
+  </div>
 
 </footer>
+
+
 <!-- ================= MODAL ================= -->
 
 <div
   class="modal"
   id="projectModal"
-  aria-hidden="true">
+  aria-hidden="true"
+>
 
   <div class="modal-bg"></div>
 
@@ -1338,7 +1109,8 @@
 
     <button
       class="modal-close"
-      id="modalClose">
+      id="modalClose"
+    >
       ×
     </button>
 
@@ -1351,8 +1123,9 @@
 </div>
 
 
+
+
 <script src="script.js"></script>
 
 </body>
 </html>
-
